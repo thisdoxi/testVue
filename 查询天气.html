@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" placeholder="请输入天气" v-model="text" @keyup.enter="sou">
+        <input type="button" value="搜索" class="get">
+        <p>
+            <span @click="gaibian('上海')">上海</span>
+            <span @click="gaibian('北京')">北京</span>
+            <span @click="gaibian('西安')">西安</span>
+            <span @click="gaibian('漠河')">漠河</span>
+        </p>
+        <ul>
+            <li v-for="item in add" style="display: inline-block;margin-right: 100px;text-align: center;">
+                <p>{{item.date}}</p>
+                <p>{{item.high}}</p>
+                <p>{{item.low}}</p>
+                <p>{{item.fengxiang}}</p>
+                <p>{{item.type}}</p>
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                text: "",
+                add: []
+            },
+            methods: {
+                sou: function () {
+                    var that = this;
+                    axios.get("https://wthrcdn.etouch.cn/weather_mini?city=" + this.text)
+                        .then(function (res) {
+                            that.add = res.data.data.forecast
+                        }, function (err) { })
+                },
+                gaibian: function (city) {
+                    this.text = city;
+                    this.sou()
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

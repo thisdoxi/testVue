@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="点击" @click="add(666,'老铁')">
+        <input type="text" @keyup.enter="nihao">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {},
+            methods: {
+                add: function (p1, p2) {
+                    console.log("做it");
+                    console.log(p1);
+                    console.log(p2);
+                },
+                nihao: function () {
+                    alert("吃了么");
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

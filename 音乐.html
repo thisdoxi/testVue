@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <style>
+        #app {
+            border: 1px solid #000;
+        }
+
+        .top {
+            text-align: right;
+            height: 100px;
+        }
+
+        .top input {
+            margin-top: 40px;
+        }
+
+        .left {
+            display: inline-block;
+            width: 30%;
+            border: 1px solid #000;
+            height: 500px;
+            box-sizing: border-box;
+            float: left;
+        }
+
+        audio {
+            width: 100%;
+            display: block;
+            height: 100px;
+            border-radius: 0;
+        }
+
+        .active {
+            -webkit-animation: animal 10s infinite linear;
+
+        }
+
+        @-webkit-keyframes animal {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .arre {
+            border-radius: 50%;
+            margin-top: 50px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .video_con {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .video_con .mask {
+            background: #000;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video_con video {
+            position: absolute;
+            top: 0;
+            left: 30%;
+            width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="top"><input type="text" @keyup.enter="sou" v-model="title"></div>
+        <div style="overflow: hidden;">
+            <div class="left">
+                <ul style="overflow-y: scroll;height: 100%;">
+                    <li v-for="(item,index) in list">
+                        <button @click="play(item.id)">播放</button>
+                        <span style="color:red;">{{item.name}}</span>
+                        <button v-if="item.mvid!=0" @click="playmv(item.mvid)">mv</button>
+                    </li>
+                </ul>
+            </div>
+            <div style="width: 40%;" class="left">
+                <img :src="picUrl" alt="" :class="{active:isactive}" width="300" class="arre">
+            </div>
+            <div class="left">
+                <h2>热门留言</h2>
+                <div style="overflow-y: scroll;height: 100%;">
+                    <table>
+                        <tr v-for="table1 in tables">
+                            <td>
+                                <img :src="table1.user.avatarUrl" width="50">
+                            </td>
+                            <td>
+                                <strong>{{table1.user.nickname}}</strong>
+                                <br>
+                                <span>{{table1.content}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="top">
+            <audio :src="musicurl" @play="donghua" @pause="pause" controls ref="audio" autoplay loop></audio>
+        </div>
+        <div class="video_con" v-if="ismask">
+            <video :src="mvUrl" controls></video>
+            <div class="mask" @click="hide"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                title: "",
+                list: [],
+                musicurl: "",
+                picUrl: "",
+                tables: [],
+                isactive: false,
+                ismask: false,
+                mvUrl: ""
+            },
+            methods: {
+                sou: function () {
+                    var that = this;
+                    axios.get("https://autumnfish.cn/search?keywords=" + this.title)
+                        .then(function (res) {
+                            that.list = res.data.result.songs
+                        }, function (err) { })
+                },
+                play: function (musicid) {
+                    var that = this;
+                    axios.get("https://autumnfish.cn/song/url/?id=" + musicid)
+                        .then(function (res) {
+                            that.musicurl = res.data.data[0].url
+                        }, function (err) { });
+                    axios.get("https://autumnfish.cn/song/detail?ids=" + musicid)
+                        .then(function (res) {
+                            that.picUrl = res.data.songs[0].al.picUrl
+                        }, function (err) { })
+                    axios.get("https://autumnfish.cn/comment/hot?type=0&id=" + musicid)
+                        .then(function (res) {
+                            that.tables = res.data.hotComments
+                        }, function (err) { })
+                },
+                donghua: function () {
+                    console.log("play");
+                    this.isactive = true
+                },
+                pause: function () {
+                    console.log("pause");
+                    this.isactive = false
+                },
+                playmv: function (mvid) {
+                    var that = this;
+                    axios.get("https://autumnfish.cn/mv/url?id=" + mvid)
+                        .then(function (res) {
+                            that.ismask = true
+                            that.mvUrl = res.data.data.url
+                            // console.log(res.data.data.url);
+                        }, function (err) { })
+                },
+                hide: function () {
+                    this.ismask = false
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

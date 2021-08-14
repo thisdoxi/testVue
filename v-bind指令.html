@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>v-bind指令</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <style>
+        .active {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <img :src="imgsrc" :title="imgtitle+'!!!'" :class="isactive?'active':''" :class="{active:isactive}"
+            :width="imgwidth" @click="toogs">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                imgsrc: "http://bpic.588ku.com/element_origin_min_pic/20/11/30/19dd5f8afffbfb974c95d1a8efe57a7f.jpg",
+                imgtitle: "标题",
+                isactive: false,
+                imgwidth: 100
+            },
+            methods: {
+                toogs: function () {
+                    this.isactive = !this.isactive
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

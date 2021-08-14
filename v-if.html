@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>v-if指令</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+</head>
+
+<body>
+    <div id="app">
+        <p v-if="true">我是一个p标签</p>
+        <p v-if="isShow">我是一个p标签</p>
+        <button @click="toogs">点击</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                isShow: false
+            },
+            methods: {
+                toogs: function () {
+                    this.isShow = !this.isShow
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

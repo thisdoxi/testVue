@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="message" @keyup.enter="add">
+        <ul>
+            <li v-for="(item,index) in list">
+                {{index+1}}&nbsp;&nbsp;&nbsp;&nbsp;{{item}}
+                <button @click="rem(index)">删除这一个{{index+1}}</button>
+            </li>
+        </ul>
+        <h2 style="border: 1px solid #000;" v-show="list!=0">{{list.length}}行<button @click="remover">删除</button>
+        </h2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                list: ["睡觉觉", "吃饭饭", "写代码"],
+                message: "空"
+            },
+            methods: {
+                add: function () {
+                    this.list.push(this.message)
+                },
+                remover: function () {
+                    this.list = [];
+                },
+                rem: function (index) {
+                    this.list.splice(index, 1)
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

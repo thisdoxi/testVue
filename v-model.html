@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+</head>
+
+<body>
+    <div id="app">
+        <button @click="stem">修改</button>
+        <input type="text" v-model="message" @keyup.enter="add">
+        <h2>{{message}}</h2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: "黑马程序员"
+            },
+            methods: {
+                add: function () {
+                    alert(this.message)
+                },
+                stem: function () {
+                    this.message = "苦丁与"
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

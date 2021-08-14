@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>v-show指令</title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="" />
+</head>
+
+<body>
+  <div id="app">
+    <img src="http://bpic.588ku.com/element_origin_min_pic/20/11/30/19dd5f8afffbfb974c95d1a8efe57a7f.jpg"
+      v-show="isShow" width="100px" />
+    <img src="http://bpic.588ku.com/element_origin_min_pic/20/11/30/19dd5f8afffbfb974c95d1a8efe57a7f.jpg"
+      v-show="age>=18" width="100px" />
+
+    <button @click="doog">点击</button>
+    <input type="button" value="累加年龄" @click="adddoog">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        isShow: false,
+        age: 17,
+      },
+      methods: {
+        doog: function () {
+          this.isShow = !this.isShow;
+        },
+        adddoog: function () {
+          this.age++
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>图片切换</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+</head>
+
+<body>
+    <div id="app">
+        <img :src="imgarr[index]" width="100">
+        <button @click="shang" v-show="index!=0">上一张</button>
+        <button @click="xia" v-show="index < imgarr.length-1">下一张</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                imgarr: [
+                    "https://bpic.588ku.com//back_origin_min_pic/21/03/15/73a84fc4404fc3d8c2ee27c6d1b0c4b1.jpg!/fw/750/quality/99/unsharp/true/compress/true",
+                    "https://bpic.588ku.com//back_origin_min_pic/21/03/15/f095bbeaea7d3cc3fd7a22468fa6714a.jpg!/fw/750/quality/99/unsharp/true/compress/true",
+                    "https://bpic.588ku.com//back_origin_min_pic/21/03/15/cba2cf63aadb13a91ef94cb2f1be5fce.jpg!/fw/750/quality/99/unsharp/true/compress/true"
+                ],
+                index: 0
+            },
+            methods: {
+                shang: function () {
+                    this.index--;
+                },
+                xia: function () {
+                    this.index++;
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>
